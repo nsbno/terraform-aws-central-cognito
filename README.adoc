@@ -1,0 +1,14 @@
+= Central Cognito App Client
+:toc:
+:!toc-title:
+:!toc-placement:
+
+A simplified way to set up an app client with Vy's central cognito.
+
+toc::[]
+
+== Relevant Repositories
+
+link:https://github.com/nsbno/cognito-aws[`nsbno/cognito-aws`]::
+Vy's central cognito setup.
+This is where you'll find documentation and info about the setup itself.
