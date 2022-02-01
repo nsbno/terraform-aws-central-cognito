@@ -7,6 +7,34 @@ A simplified way to set up an app client with Vy's central cognito.
 
 toc::[]
 
+== Usage
+
+Add this module to your microservice's infrastructure like this:
+
+[source, hcl]
+----
+module "cognito" {
+  source = "https://github.com/nsbno/terraform-aws-central-cognito?ref=x.y.z"
+
+  name_prefix = "infrademo"
+  application_name = "demo"
+
+  environment = "dev"
+
+  resource_server_base_url = "infrademo.vydev.io"
+  resource_server_scopes   = {
+    read = {
+      name = "read"
+      description = "Allow clients to read data"
+    }
+  }
+
+  user_pool_client_scopes = [
+    "https://rollingstock.vydev.io/traingps/read"
+  ]
+}
+----
+
 == Relevant Repositories
 
 link:https://github.com/nsbno/cognito-aws[`nsbno/cognito-aws`]::
