@@ -14,7 +14,7 @@ Add this module to your microservice's infrastructure like this:
 [source, hcl]
 ----
 module "cognito" {
-  source = "https://github.com/nsbno/terraform-aws-central-cognito?ref=x.y.z"
+  source = "github.com/nsbno/terraform-aws-central-cognito?ref=x.y.z"
 
   name_prefix = "infrademo"
   application_name = "demo"
