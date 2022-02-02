@@ -37,7 +37,7 @@ variable "resource_server_scopes" {
     description = string
   }))
 
-  default = map()
+  default = {}
 }
 
 variable "user_pool_client_scopes" {
