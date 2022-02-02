@@ -1,10 +1,10 @@
 output "client_id" {
-  value     = jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials[0].secret_string)["client_id"]
+  value     = jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials.secret_string)["client_id"]
   sensitive = true
 }
 
 output "client_secret" {
-  value     = jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials[0].secret_string)["client_secret"]
+  value     = jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials.secret_string)["client_secret"]
   sensitive = true
 }
 
