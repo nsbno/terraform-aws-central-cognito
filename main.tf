@@ -38,7 +38,7 @@ locals {
     }
   }
 
-  environment = cognito_environments[var.environment]
+  environment = local.cognito_environments[var.environment]
 }
 
 data "aws_caller_identity" "current" {}
