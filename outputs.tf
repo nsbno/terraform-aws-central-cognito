@@ -8,7 +8,7 @@ output "client_secret" {
   sensitive = true
 }
 
-output "cognito_auth_url" {
+output "auth_url" {
   value = "https://auth.${local.environment.name == "prod" ? "" : "${local.environment.name}."}cognito.vydev.io"
 }
 
