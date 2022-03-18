@@ -65,12 +65,16 @@ locals {
   user_pool_client = {
     user_pool_client = {
       name_prefix     = "${var.name_prefix}-${var.application_name}"
-      generate_secret = true
+      generate_secret = var.generate_secret
 
       explicit_auth_flows                  = ["ADMIN_NO_SRP_AUTH"]
-      allowed_oauth_flows                  = ["client_credentials"]
+      allowed_oauth_flows                  = var.allowed_oauth_flows
       allowed_oauth_scopes                 = var.user_pool_client_scopes
       allowed_oauth_flows_user_pool_client = true
+      
+      callback_urls                = var.callback_urls
+      logout_urls                  = var.logout_urls
+      supported_identity_providers = var.supported_identity_providers 
     }
   }
 
