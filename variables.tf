@@ -46,3 +46,39 @@ variable "user_pool_client_scopes" {
 
   default = []
 }
+
+variable "generate_secret" {
+  description = "Should an application secret be generated."
+  type = bool
+  
+  default = true
+}
+
+variable "allowed_oauth_flows" {
+  description = "List of allowed OAuth flows (code, implicit, client_credentials)."
+  type        = list(string)
+
+  default = ["client_credentials"]
+}
+
+
+variable "callback_urls" {
+  description = "List of allowed callback URLs for the identity providers."
+  type        = list(string)
+
+  default = null
+}
+
+variable "logout_urls" {
+  description = "List of allowed logout URLs for the identity providers."
+  type        = list(string)
+
+  default = null
+}
+
+variable "supported_identity_providers" {
+  description = "List of provider names for the identity providers that are supported on this client. Uses the provider_name attribute of aws_cognito_identity_provider resource(s), or the equivalent string(s)."
+  type        = list(string)
+
+  default = null
+}
