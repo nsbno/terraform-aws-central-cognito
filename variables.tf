@@ -59,6 +59,13 @@ variable "allowed_oauth_flows" {
   type        = list(string)
 
   default = ["client_credentials"]
+  validation {
+    condition = alltrue([
+      for flow in var.allowed_oauth_flows 
+        : contains(["client_credentials", "code", "implicit"], flow)
+    ])
+    error_message = "Items in allowed_oauth_flows can only be'client_credentials', 'code' or 'implicit'"
+  }
 }
 
 
