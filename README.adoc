@@ -9,6 +9,7 @@ toc::[]
 
 == Usage
 
+=== Regular usage
 Add this module to your microservice's infrastructure like this:
 
 [source, hcl]
@@ -30,6 +31,40 @@ module "cognito" {
   }
 
   user_pool_client_scopes = [
+    "https://rollingstock.vydev.io/traingps/read"
+  ]
+}
+----
+
+=== Client side
+
+For client-side only authentication (authorization_code flow), i.e. Vy SSO in SPAs, you can create a client like this:
+[source, hcl]
+----
+module "cognito" {
+  source = "github.com/nsbno/terraform-aws-central-cognito?ref=x.y.z"
+
+  name_prefix = "infrademo"
+  application_name = "demo"
+
+  environment = "dev"
+
+  allowed_oauth_flows          = ["code", "implicit"]
+  supported_identity_providers = ["vygruppen"]
+  generate_secret              = false // Setting this to false will not generate a secret, and as such the client_secret output variable will be null
+  callback_urls                = [
+    "http://localhost:3000/login",
+    "https://${local.site_url}/login"
+  ]
+  logout_urls                  = [
+    "http://localhost:3000/logout",
+    "https://${local.site_url}/logout"
+  ]
+
+  user_pool_client_scopes = [
+    "openid",
+    "email",
+    "phone",
     "https://rollingstock.vydev.io/traingps/read"
   ]
 }
