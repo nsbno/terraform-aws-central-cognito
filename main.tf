@@ -106,6 +106,7 @@ resource "aws_s3_bucket_object" "delegated-cognito-config" {
  * Central Cognito will dump our values back into a secretsmanager variable, that we can read.
  */
 resource "time_sleep" "wait_for_credentials" {
+  count           = var.generate_secret ? 1 : 0
   create_duration = "300s"
 
   triggers = {
@@ -114,7 +115,8 @@ resource "time_sleep" "wait_for_credentials" {
 }
 
 data "aws_secretsmanager_secret_version" "microservice_client_credentials" {
-  depends_on = [aws_s3_bucket_object.delegated-cognito-config, time_sleep.wait_for_credentials]
+  count      = var.generate_secret ? 1 : 0
+  depends_on = [aws_s3_bucket_object.delegated-cognito-config, one(time_sleep.wait_for_credentials[*])]
 
   secret_id  = "arn:aws:secretsmanager:eu-west-1:${local.environment.account_id}:secret:${data.aws_caller_identity.current.account_id}-${var.name_prefix}-${var.application_name}-id"
 }
