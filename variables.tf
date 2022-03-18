@@ -50,7 +50,7 @@ variable "user_pool_client_scopes" {
 variable "generate_secret" {
   description = "Should an application secret be generated."
   type = bool
-  
+
   default = true
 }
 
@@ -61,10 +61,10 @@ variable "allowed_oauth_flows" {
   default = ["client_credentials"]
   validation {
     condition = alltrue([
-      for flow in var.allowed_oauth_flows 
+      for flow in var.allowed_oauth_flows
         : contains(["client_credentials", "code", "implicit"], flow)
     ])
-    error_message = "Items in allowed_oauth_flows can only be'client_credentials', 'code' or 'implicit'"
+    error_message = "Items in allowed_oauth_flows can only be'client_credentials', 'code' or 'implicit'."
   }
 }
 
