@@ -39,6 +39,7 @@ module "cognito" {
 === Client side
 
 For client-side only authentication (authorization_code flow), i.e. Vy SSO in SPAs, you can create a client like this:
+
 [source, hcl]
 ----
 module "cognito" {
@@ -51,7 +52,8 @@ module "cognito" {
 
   allowed_oauth_flows          = ["code", "implicit"]
   supported_identity_providers = ["vygruppen"]
-  generate_secret              = false // Setting this to false will not generate a secret, and as such the client_secret output variable will be null
+  # Setting this to false will not generate a secret, thus the client_secret output will be null.
+  generate_secret              = false
   callback_urls                = [
     "http://localhost:3000/login",
     "https://${local.site_url}/login"
