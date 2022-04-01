@@ -48,10 +48,12 @@ data "aws_region" "current" {}
  * == Configure Resource Server and User Pool Client
  */
 locals {
+  resource_server_base_url = trimprefix(var.resource_server_base_url, "https://")
+
   resource_server = {
     resource_server = {
       name_prefix = "${var.name_prefix}-${var.application_name}"
-      identifier  = "https://${var.resource_server_base_url}/${var.application_name}"
+      identifier  = "https://${local.resource_server_base_url}/${var.application_name}"
 
       scopes = [
         for key, value in var.resource_server_scopes : {
