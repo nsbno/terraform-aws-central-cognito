@@ -7,12 +7,12 @@ output "user_pool_id" {
 }
 
 output "client_id" {
-  value     = jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials.secret_string)["client_id"]
+  value     = length(var.user_pool_client_scopes) != 0 ? jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials[0].secret_string)["client_id"] : null
   sensitive = true
 }
 
 output "client_secret" {
-  value     = var.generate_secret ? jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials.secret_string)["client_secret"] : null
+  value     = var.generate_secret && length(var.user_pool_client_scopes) != 0 ? jsondecode(data.aws_secretsmanager_secret_version.microservice_client_credentials[0].secret_string)["client_secret"] : null
   sensitive = true
 }
 
