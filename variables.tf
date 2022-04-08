@@ -68,6 +68,34 @@ variable "allowed_oauth_flows" {
   }
 }
 
+variable "explicit_auth_flows" {
+  description = "List of excplicit auth flows this client can initate"
+  type        = list(string)
+
+  default = [ "ADMIN_NO_SRP_AUTH" ]
+
+  validation {
+    condition = alltrue([
+      for flow in var.explicit_auth_flows 
+        : contains(
+           [
+             "ADMIN_NO_SRP_AUTH",
+             "CUSTOM_AUTH_FLOW_ONLY",
+             "USER_PASSWORD_AUTH",
+             "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+             "ALLOW_CUSTOM_AUTH",
+             "ALLOW_USER_PASSWORD_AUTH",
+             "ALLOW_USER_SRP_AUTH",
+             "ALLOW_REFRESH_TOKEN_AUTH"
+            ],
+            flow
+          )
+    ])
+    error_message = "The list contains an invalid explicit auth flow indentifier."
+  }
+
+}
+
 
 variable "callback_urls" {
   description = "List of allowed callback URLs for the identity providers."
