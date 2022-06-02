@@ -31,7 +31,7 @@ module "cognito" {
   }
 
   user_pool_client_scopes = [
-    "https://rollingstock.vydev.io/traingps/read"
+    "https://services.rollingstock.vydev.io/traingps/read"
   ]
 }
 ----
