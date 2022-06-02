@@ -67,7 +67,7 @@ module "cognito" {
     "openid",
     "email",
     "phone",
-    "https://rollingstock.vydev.io/traingps/read"
+    "https://rollingstock.vydev.io/read"
   ]
 }
 ----
