@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = ">= 3.0.0"
+      version = ">= 4.9.0"
     }
   }
 }
@@ -88,7 +88,7 @@ locals {
   ))
 }
 
-resource "aws_s3_bucket_object" "delegated-cognito-config" {
+resource "aws_s3_object" "delegated-cognito-config" {
   bucket = var.bucket
   acl    = "bucket-owner-full-control"
 
@@ -113,14 +113,14 @@ resource "time_sleep" "wait_for_credentials" {
   create_duration = "300s"
 
   triggers = {
-    config_hash = sha1(aws_s3_bucket_object.delegated-cognito-config.content)
+    config_hash = sha1(aws_s3_object.delegated-cognito-config.content)
   }
 }
 
 data "aws_secretsmanager_secret_version" "microservice_client_credentials" {
   count = length(var.user_pool_client_scopes) == 0 ? 0 : 1
 
-  depends_on = [aws_s3_bucket_object.delegated-cognito-config, time_sleep.wait_for_credentials[0]]
+  depends_on = [aws_s3_object.delegated-cognito-config, time_sleep.wait_for_credentials[0]]
 
   secret_id  = "arn:aws:secretsmanager:eu-west-1:${local.environment.account_id}:secret:${data.aws_caller_identity.current.account_id}-${var.name_prefix}-${var.application_name}-id"
 }
