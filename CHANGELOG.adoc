@@ -1,0 +1,23 @@
+= Changelog
+
+== 0.5.0
+
+This update adds compatability with AWS provider v4, and drops v3.
+
+=== Breaking Changes
+
+The S3 object resource is being moved from `aws_s3_bucket_object` to `aws_s3_object`::
+You will have to import the old object to the new resource, and remove the old object from state.
+If not, your client id and client secret will be regenerated.
+
+[source,bash]
+----
+# Copy the path
+terraform state show module.cognito_delegated.aws_s3_bucket_object.delegated-cognito-config
+
+# Import the module
+terraform import module.cognito_delegated.aws_s3_object.delegated-cognito-config <s3-path>
+----
+
+Read more about the AWS provider object update here:
+https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/version-4-upgrade#resource-aws_s3_bucket_object
