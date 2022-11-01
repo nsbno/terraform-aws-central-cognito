@@ -3,6 +3,10 @@
 :!toc-title:
 :!toc-placement:
 
+[IMPORTANT]
+**This module is depricated and will not work after febuary 1st 2023. Use the link:https://registry.terraform.io/providers/nsbno/vy/latest/docs/resources/app_client[new terraform provider] for future use!**
+
+
 A simplified way to set up an app client with Vy's central cognito.
 
 toc::[]
